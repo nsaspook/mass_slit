@@ -109,20 +109,19 @@ near uint16_t blink_speed;
 const far rom int8_t build_date[] = __DATE__, build_time[] = __TIME__;
 const far rom int8_t
 spacer0[] = " ",
-	spacer1[] = "\r\n",
-	status0[] = "\r\n OK ",
-	status1[] = "\r\n Booting RPM converter ",
-	status2[] = "\r\n RPMC waiting for signal ",
-	status3[] = "\r\n RPMC spinning normal ",
-	status4[] = "\r\n RPMC spinning low ",
-	boot0[] = "\r\n Boot RCON ",
-	boot1[] = "\r\n Boot STKPTR ";
+        spacer1[] = "\r\n",
+        status0[] = "\r\n OK ",
+        status1[] = "\r\n Booting RPM converter ",
+        status2[] = "\r\n RPMC waiting for signal ",
+        status3[] = "\r\n RPMC spinning normal ",
+        status4[] = "\r\n RPMC spinning low ",
+        boot0[] = "\r\n Boot RCON ",
+        boot1[] = "\r\n Boot STKPTR ";
 
 #pragma code tm_interrupt = 0x8
 
-void tm_int(void)
-{
-	_asm goto tm_handler _endasm
+void tm_int(void) {
+    _asm goto tm_handler _endasm
 }
 #pragma code
 
@@ -130,307 +129,303 @@ void tm_int(void)
 
 void tm_handler(void) // timer/serial functions are handled here
 {
-	static uint8_t led_cache = 0xff;
+    static uint8_t led_cache = 0xff;
 
-	/* check for expected interrupts */
-	V.valid = FALSE;
+    /* check for expected interrupts */
+    V.valid = FALSE;
 
-	if (INTCONbits.INT0IF) {
-		V.valid = TRUE;
-		INTCONbits.INT0IF = FALSE;
-		V.spin_count++;
-		V.sleep_ticks = OFF;
-		RPMLED = !RPMLED;
-	}
+    if (INTCONbits.INT0IF) {
+        V.valid = TRUE;
+        INTCONbits.INT0IF = FALSE;
+        V.spin_count++;
+        V.sleep_ticks = OFF;
+        RPMLED = !RPMLED;
+    }
 
-	if (PIR1bits.RCIF) { // is data from RS-232 port
-		V.valid = TRUE;
-		V.rx_data = RCREG;
-		if (RCSTAbits.OERR) {
-			RCSTAbits.CREN = 0; // clear overrun
-			RCSTAbits.CREN = 1; // re-enable
-		}
-		V.comm = TRUE;
-	}
+    if (PIR1bits.RCIF) { // is data from RS-232 port
+        V.valid = TRUE;
+        V.rx_data = RCREG;
+        if (RCSTAbits.OERR) {
+            RCSTAbits.CREN = 0; // clear overrun
+            RCSTAbits.CREN = 1; // re-enable
+        }
+        V.comm = TRUE;
+    }
 
-	if (PIR1bits.TMR1IF) { //      Timer1 int handler for RPM frequency generator
-		V.valid = TRUE;
-		PIR1bits.TMR1IF = FALSE; //      clear int flag
-		if (V.slew_freq < V.sample_freq) V.slew_freq += 10;
-		if (V.slew_freq > V.sample_freq) V.slew_freq--;
-		WriteTimer1(V.slew_freq); // this can change for ramp up/down simulation
-		if (V.spinning) {
-			RPMOUT = !RPMOUT; // generate the high speed motor timing pulses
-		} else {
-			V.slew_freq = SAMPLEFREQ_R;
-		}
-		V.hi_rez++;
-	}
+    if (PIR1bits.TMR1IF) { //      Timer1 int handler for RPM frequency generator
+        V.valid = TRUE;
+        PIR1bits.TMR1IF = FALSE; //      clear int flag
+        if (V.slew_freq < V.sample_freq) V.slew_freq += 10;
+        if (V.slew_freq > V.sample_freq) V.slew_freq--;
+        WriteTimer1(V.slew_freq); // this can change for ramp up/down simulation
+        if (V.spinning) {
+            RPMOUT = !RPMOUT; // generate the high speed motor timing pulses
+        } else {
+            V.slew_freq = SAMPLEFREQ_R;
+        }
+        V.hi_rez++;
+    }
 
-	if (INTCONbits.TMR0IF) { //      check timer0 irq time timer
-		V.valid = TRUE;
-		INTCONbits.TMR0IF = FALSE; //      clear interrupt flag
-		WriteTimer0(timer0_off);
+    if (INTCONbits.TMR0IF) { //      check timer0 irq time timer
+        V.valid = TRUE;
+        INTCONbits.TMR0IF = FALSE; //      clear interrupt flag
+        WriteTimer0(timer0_off);
 
-		if (V.stop_tick != OFF) {
-			if (V.stop_tick > MAX_TICK)
-				V.stop_tick = MAX_TICK;
-			V.stop_tick--;
-		}
+        if (V.stop_tick != OFF) {
+            if (V.stop_tick > MAX_TICK)
+                V.stop_tick = MAX_TICK;
+            V.stop_tick--;
+        }
 
-		if ((++V.mod_count % 2) == 0) {
-			// check for spin motor movement
-			if (V.spin_count >= RPM_COUNT) {
-				V.spinning = TRUE;
-				V.stop_tick = MAX_TICK;
-				if (V.motor_ramp < START_RAMP) {
-					V.motor_ramp++;
-					V.sample_freq = SAMPLEFREQ_S; // slower spin-up RPM signal to RDAC
-					WriteTimer1(V.sample_freq);
-					V.comm_state = 4;
-				} else {
-					V.sample_freq = SAMPLEFREQ; // normal RPM signal to RDAC
-					V.comm_state = 3;
-					if ((V.spin_count > V.max_freq) && (V.spin_count < SPIN_LIMIT_H)) V.max_freq = V.spin_count;
-					V.hi_rez_count = V.hi_rez;
-					V.hi_rez = 0;
-				}
-			} else {
-				if (V.stop_tick == OFF) {
-					V.spinning = FALSE;
-					V.motor_ramp = OFF;
-					RPMOUT = 0;
-					V.sample_freq = SAMPLEFREQ_S; // slowdown RPM signal to RDAC
-					V.comm_state = 2;
-					V.sleep_ticks++;
-				}
-				if (V.stop_tick >= STOP_RAMP) {
-					V.sample_freq = SAMPLEFREQ_S;
-					WriteTimer1(V.sample_freq);
-				}
-			}
-			V.spin_count = 0;
-		}
+        if ((++V.mod_count % 2) == 0) {
+            // check for spin motor movement
+            if (V.spin_count >= RPM_COUNT) {
+                V.spinning = TRUE;
+                V.stop_tick = MAX_TICK;
+                if (V.motor_ramp < START_RAMP) {
+                    V.motor_ramp++;
+                    V.sample_freq = SAMPLEFREQ_S; // slower spin-up RPM signal to RDAC
+                    WriteTimer1(V.sample_freq);
+                    V.comm_state = 4;
+                } else {
+                    V.sample_freq = SAMPLEFREQ; // normal RPM signal to RDAC
+                    V.comm_state = 3;
+                    if ((V.spin_count > V.max_freq) && (V.spin_count < SPIN_LIMIT_H)) V.max_freq = V.spin_count;
+                    V.hi_rez_count = V.hi_rez;
+                    V.hi_rez = 0;
+                }
+            } else {
+                if (V.stop_tick == OFF) {
+                    V.spinning = FALSE;
+                    V.motor_ramp = OFF;
+                    RPMOUT = 0;
+                    V.sample_freq = SAMPLEFREQ_S; // slowdown RPM signal to RDAC
+                    V.comm_state = 2;
+                    V.sleep_ticks++;
+                }
+                if (V.stop_tick >= STOP_RAMP) {
+                    V.sample_freq = SAMPLEFREQ_S;
+                    WriteTimer1(V.sample_freq);
+                }
+            }
+            V.spin_count = 0;
+        }
 
-		/* Start Led Blink Code */
-		if (V.blink_alt) {
-			if (V.blink & 0b00000001) LEDS.out_bits.b0 = !LEDS.out_bits.b0;
-			if (V.blink & 0b00000010) LEDS.out_bits.b1 = !LEDS.out_bits.b0;
-			if (V.blink & 0b00000100) LEDS.out_bits.b2 = !LEDS.out_bits.b2;
-			if (V.blink & 0b00001000) LEDS.out_bits.b3 = !LEDS.out_bits.b2;
-			if (V.blink & 0b00010000) LEDS.out_bits.b4 = !LEDS.out_bits.b4;
-			if (V.blink & 0b00100000) LEDS.out_bits.b5 = !LEDS.out_bits.b4;
-			if (V.blink & 0b01000000) LEDS.out_bits.b6 = !LEDS.out_bits.b6;
-			if (V.blink & 0b10000000) LEDS.out_bits.b7 = !LEDS.out_bits.b6;
-		} else {
-			if (V.blink & 0b00000001) LEDS.out_bits.b0 = !LEDS.out_bits.b0;
-			if (V.blink & 0b00000010) LEDS.out_bits.b1 = !LEDS.out_bits.b1;
-			if (V.blink & 0b00000100) LEDS.out_bits.b2 = !LEDS.out_bits.b2;
-			if (V.blink & 0b00001000) LEDS.out_bits.b3 = !LEDS.out_bits.b3;
-			if (V.blink & 0b00010000) LEDS.out_bits.b4 = !LEDS.out_bits.b4;
-			if (V.blink & 0b00100000) LEDS.out_bits.b5 = !LEDS.out_bits.b5;
-			if (V.blink & 0b01000000) LEDS.out_bits.b6 = !LEDS.out_bits.b6;
-			if (V.blink & 0b10000000) LEDS.out_bits.b7 = !LEDS.out_bits.b7;
-		}
-		if (LEDS.out_byte != led_cache || TRUE) {
-			if (LEDS.out_bits.b1) {
-				LED1 = LEDON;
-			} else {
-				LED1 = LEDOFF; // LED OFF
-			}
-			if (LEDS.out_bits.b2) {
-				LED2 = LEDON;
-			} else {
-				LED2 = LEDOFF; // LED OFF
-			}
-			if (LEDS.out_bits.b3) {
-				LED3 = LEDON;
-			} else {
-				LED3 = LEDOFF; // LED OFF
-			}
-			if (LEDS.out_bits.b4) {
-				LED4 = LEDON;
-			} else {
-				LED4 = LEDOFF; // LED OFF
-			}
-			if (LEDS.out_bits.b5) {
-				LED5 = LEDON;
-			} else {
-				LED5 = LEDOFF; // LED OFF
-			}
-			if (LEDS.out_bits.b6) {
-				LED6 = LEDON;
-			} else {
-				LED6 = LEDOFF; // LED OFF
-			}
-			led_cache = LEDS.out_byte;
-		}
-		/* End Led Blink Code */
-	}
-	/*
-	 * spurious interrupt handler
-	 */
-	if (!V.valid) {
-		if (V.spurious_int++ > MAX_SPURIOUS)
-			Reset();
-	}
+        /* Start Led Blink Code */
+        if (V.blink_alt) {
+            if (V.blink & 0b00000001) LEDS.out_bits.b0 = !LEDS.out_bits.b0;
+            if (V.blink & 0b00000010) LEDS.out_bits.b1 = !LEDS.out_bits.b0;
+            if (V.blink & 0b00000100) LEDS.out_bits.b2 = !LEDS.out_bits.b2;
+            if (V.blink & 0b00001000) LEDS.out_bits.b3 = !LEDS.out_bits.b2;
+            if (V.blink & 0b00010000) LEDS.out_bits.b4 = !LEDS.out_bits.b4;
+            if (V.blink & 0b00100000) LEDS.out_bits.b5 = !LEDS.out_bits.b4;
+            if (V.blink & 0b01000000) LEDS.out_bits.b6 = !LEDS.out_bits.b6;
+            if (V.blink & 0b10000000) LEDS.out_bits.b7 = !LEDS.out_bits.b6;
+        } else {
+            if (V.blink & 0b00000001) LEDS.out_bits.b0 = !LEDS.out_bits.b0;
+            if (V.blink & 0b00000010) LEDS.out_bits.b1 = !LEDS.out_bits.b1;
+            if (V.blink & 0b00000100) LEDS.out_bits.b2 = !LEDS.out_bits.b2;
+            if (V.blink & 0b00001000) LEDS.out_bits.b3 = !LEDS.out_bits.b3;
+            if (V.blink & 0b00010000) LEDS.out_bits.b4 = !LEDS.out_bits.b4;
+            if (V.blink & 0b00100000) LEDS.out_bits.b5 = !LEDS.out_bits.b5;
+            if (V.blink & 0b01000000) LEDS.out_bits.b6 = !LEDS.out_bits.b6;
+            if (V.blink & 0b10000000) LEDS.out_bits.b7 = !LEDS.out_bits.b7;
+        }
+        if (LEDS.out_byte != led_cache || TRUE) {
+            if (LEDS.out_bits.b1) {
+                LED1 = LEDON;
+            } else {
+                LED1 = LEDOFF; // LED OFF
+            }
+            if (LEDS.out_bits.b2) {
+                LED2 = LEDON;
+            } else {
+                LED2 = LEDOFF; // LED OFF
+            }
+            if (LEDS.out_bits.b3) {
+                LED3 = LEDON;
+            } else {
+                LED3 = LEDOFF; // LED OFF
+            }
+            if (LEDS.out_bits.b4) {
+                LED4 = LEDON;
+            } else {
+                LED4 = LEDOFF; // LED OFF
+            }
+            if (LEDS.out_bits.b5) {
+                LED5 = LEDON;
+            } else {
+                LED5 = LEDOFF; // LED OFF
+            }
+            if (LEDS.out_bits.b6) {
+                LED6 = LEDON;
+            } else {
+                LED6 = LEDOFF; // LED OFF
+            }
+            led_cache = LEDS.out_byte;
+        }
+        /* End Led Blink Code */
+    }
+    /*
+     * spurious interrupt handler
+     */
+    if (!V.valid) {
+        if (V.spurious_int++ > MAX_SPURIOUS)
+            Reset();
+    }
 
 }
 
 /* main loop routine */
-int16_t sw_work(void)
-{
+int16_t sw_work(void) {
 
-	if (V.valid)
-		ClrWdt(); // reset watchdog
+    if (V.valid)
+        ClrWdt(); // reset watchdog
 
-	if (V.spinning) {
-		blink_led(1, ON, ON); // LED blink
-	} else {
-		blink_led(1, ON, OFF); // LED STEADY
-	}
+    if (V.spinning) {
+        blink_led(1, ON, ON); // LED blink
+    } else {
+        blink_led(1, ON, OFF); // LED STEADY
+    }
 
-	if (V.comm) {
-		switch (V.comm_state) {
-		case 1:
-			putrsUSART(status1);
-			break;
-		case 2:
-			putrsUSART(status2);
-			break;
-		case 3:
-			putrsUSART(status3);
-			itoa(V.spin_count, str);
-			putsUSART(str);
-			putrsUSART(spacer0);
-			itoa(V.hi_rez_count, str);
-			putsUSART(str);
-			break;
-		case 4:
-			putrsUSART(status4);
-			break;
-		default:
-			putrsUSART(status0);
-			break;
-		}
-		V.comm = FALSE;
-		V.sleep_ticks = 0;
-	}
-	/*
-	 * shutdown the controller if nothing is happening
-	 */
-	if (V.sleep_ticks > SLEEP_COUNT) {
-		LED1 = 0;
-		LED2 = 0;
-		RPMLED = 0;
-		OSCCON = 0x00; // sleep, no clocks
-		Sleep();
-		OSCCON = 0x72;
-	}
+    if (V.comm) {
+        switch (V.comm_state) {
+            case 1:
+                putrsUSART(status1);
+                break;
+            case 2:
+                putrsUSART(status2);
+                break;
+            case 3:
+                putrsUSART(status3);
+                itoa(V.spin_count, str);
+                putsUSART(str);
+                putrsUSART(spacer0);
+                itoa(V.hi_rez_count, str);
+                putsUSART(str);
+                break;
+            case 4:
+                putrsUSART(status4);
+                break;
+            default:
+                putrsUSART(status0);
+                break;
+        }
+        V.comm = FALSE;
+        V.sleep_ticks = 0;
+    }
+    /*
+     * shutdown the controller if nothing is happening
+     */
+    if (V.sleep_ticks > SLEEP_COUNT) {
+        LED1 = 0;
+        LED2 = 0;
+        RPMLED = 0;
+        OSCCON = 0x00; // sleep, no clocks
+        Sleep();
+        OSCCON = 0x72;
+    }
 
-	return 0;
+    return 0;
 }
 
-void init_rmsmon(void)
-{
-	/*
-	 * check for a clean POR
-	 */
-	V.boot_code = FALSE;
-	if (RCON != 0b0011100)
-		V.boot_code = TRUE;
+void init_rmsmon(void) {
+    /*
+     * check for a clean POR
+     */
+    V.boot_code = FALSE;
+    if (RCON != 0b0011100)
+        V.boot_code = TRUE;
 
-	if (STKPTRbits.STKFUL || STKPTRbits.STKUNF) {
-		V.boot_code = TRUE;
-		STKPTRbits.STKFUL = 0;
-		STKPTRbits.STKUNF = 0;
-	}
+    if (STKPTRbits.STKFUL || STKPTRbits.STKUNF) {
+        V.boot_code = TRUE;
+        STKPTRbits.STKFUL = 0;
+        STKPTRbits.STKUNF = 0;
+    }
 
-	OSCCON = 0x72;
-	ADCON1 = 0x7F; // all digital, no ADC
-	/* interrupt priority ON */
-	RCONbits.IPEN = 1;
-	/* define I/O ports */
-	RMSPORTA = RMSPORT_IOA;
-	RMSPORTB = RMSPORT_IOB;
+    OSCCON = 0x72;
+    ADCON1 = 0x7F; // all digital, no ADC
+    /* interrupt priority ON */
+    RCONbits.IPEN = 1;
+    /* define I/O ports */
+    RMSPORTA = RMSPORT_IOA;
+    RMSPORTB = RMSPORT_IOB;
 
-	RPMOUT = LEDON; // preset all LEDS
-	LED1 = LEDON;
-	LED2 = LEDON;
-	LED3 = LEDON;
-	LED4 = LEDON;
-	LED5 = LEDON;
-	LED6 = LEDON;
-	RPMLED = LEDON;
-	Blink_Init();
-	timer0_off = TIMEROFFSET; // blink fast
-	OpenTimer0(TIMER_INT_ON & T0_16BIT & T0_SOURCE_INT & T0_PS_1_64); // led blinker
-	WriteTimer0(timer0_off); //	start timer0 at ~1/2 second ticks
-	OpenTimer1(TIMER_INT_ON & T1_16BIT_RW & T1_SOURCE_INT & T1_PS_1_4 & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF); // Viision RPM signal
-	WriteTimer1(SAMPLEFREQ);
-	/* Light-link data input */
-	COMM_ENABLE = TRUE; // for PICDEM4 onboard RS-232, not used on custom board
-	OpenUSART(USART_TX_INT_OFF &
-		USART_RX_INT_ON &
-		USART_ASYNCH_MODE &
-		USART_EIGHT_BIT &
-		USART_CONT_RX, 50); // 8mhz internal osc 9600
+    RPMOUT = LEDON; // preset all LEDS
+    LED1 = LEDON;
+    LED2 = LEDON;
+    LED3 = LEDON;
+    LED4 = LEDON;
+    LED5 = LEDON;
+    LED6 = LEDON;
+    RPMLED = LEDON;
+    Blink_Init();
+    timer0_off = TIMEROFFSET; // blink fast
+    OpenTimer0(TIMER_INT_ON & T0_16BIT & T0_SOURCE_INT & T0_PS_1_64); // led blinker
+    WriteTimer0(timer0_off); //	start timer0 at ~1/2 second ticks
+    OpenTimer1(TIMER_INT_ON & T1_16BIT_RW & T1_SOURCE_INT & T1_PS_1_4 & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF); // Viision RPM signal
+    WriteTimer1(SAMPLEFREQ);
+    /* Light-link data input */
+    COMM_ENABLE = TRUE; // for PICDEM4 onboard RS-232, not used on custom board
+    OpenUSART(USART_TX_INT_OFF &
+            USART_RX_INT_ON &
+            USART_ASYNCH_MODE &
+            USART_EIGHT_BIT &
+            USART_CONT_RX, 50); // 8mhz internal osc 9600
 
-	/*      work int thread setup */
-	INTCONbits.TMR0IE = 1; // enable int
-	INTCON2bits.TMR0IP = 1; // make it high level
+    /*      work int thread setup */
+    INTCONbits.TMR0IE = 1; // enable int
+    INTCON2bits.TMR0IP = 1; // make it high level
 
-	PIE1bits.TMR1IE = 1; // enable int
-	IPR1bits.TMR1IP = 1; // make it high level
+    PIE1bits.TMR1IE = 1; // enable int
+    IPR1bits.TMR1IP = 1; // make it high level
 
-	INTCONbits.INT0IE = 1; // enable RPM sensor input
-	INTCON2bits.RBPU = 0; // enable weak pull-ups
+    INTCONbits.INT0IE = 1; // enable RPM sensor input
+    INTCON2bits.RBPU = 0; // enable weak pull-ups
 
-	init_rms_params();
+    init_rms_params();
 
-	/* Enable all high priority interrupts */
-	INTCONbits.GIEH = 1;
+    /* Enable all high priority interrupts */
+    INTCONbits.GIEH = 1;
 }
 
-uint8_t init_rms_params(void)
-{
-	V.spin_count = 0;
-	V.stop_tick = 0;
-	V.motor_ramp = 0;
-	V.spinning = FALSE;
-	V.sample_freq = SAMPLEFREQ;
-	V.slew_freq = SAMPLEFREQ_R;
-	V.valid = TRUE;
-	V.spurious_int = 0;
-	V.comm = FALSE;
-	V.comm_state = 0;
-	putrsUSART(status1);
-	putrsUSART(build_date);
-	putrsUSART(spacer0);
-	putrsUSART(build_time);
-	putrsUSART(spacer1);
-	if (V.boot_code) {
-		itoa(RCON, str);
-		putrsUSART(boot0);
-		putsUSART(str);
-		itoa(STKPTR, str);
-		putrsUSART(boot1);
-		putsUSART(str);
-	}
-	return 0;
+uint8_t init_rms_params(void) {
+    V.spin_count = 0;
+    V.stop_tick = 0;
+    V.motor_ramp = 0;
+    V.spinning = FALSE;
+    V.sample_freq = SAMPLEFREQ;
+    V.slew_freq = SAMPLEFREQ_R;
+    V.valid = TRUE;
+    V.spurious_int = 0;
+    V.comm = FALSE;
+    V.comm_state = 0;
+    putrsUSART(status1);
+    putrsUSART(build_date);
+    putrsUSART(spacer0);
+    putrsUSART(build_time);
+    putrsUSART(spacer1);
+    if (V.boot_code) {
+        itoa(RCON, str);
+        putrsUSART(boot0);
+        putsUSART(str);
+        itoa(STKPTR, str);
+        putrsUSART(boot1);
+        putsUSART(str);
+    }
+    return 0;
 }
 
-void main(void)
-{
-	init_rmsmon();
-	blink_led(2, ON, ON); // controller run indicator
+void main(void) {
+    init_rmsmon();
+    blink_led(2, ON, ON); // controller run indicator
 
-	/* Loop forever */
-	while (TRUE) { // busy work
-		sw_work(); // run housekeeping
-		Nop();
-		Nop();
-		Nop();
-		Nop();
-	}
+    /* Loop forever */
+    while (TRUE) { // busy work
+        sw_work(); // run housekeeping
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+    }
 }
