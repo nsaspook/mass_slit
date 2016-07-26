@@ -9096,7 +9096,7 @@
                         <instance part="PAD6" gate="1" x="88.9" y="93.98"/>
                         <instance part="PAD7" gate="1" x="96.52" y="93.98"/>
                         <instance part="VSS1" gate="G$1" x="33.02" y="35.56"/>
-                        <instance part="VDD1" gate="G$1" x="55.88" y="83.82"/>
+                        <instance part="VDD1" gate="G$1" x="55.88" y="78.74" rot="R180"/>
                         <instance part="C1" gate="G$1" x="35.56" y="53.34" rot="R270"/>
                         <instance part="C2" gate="G$1" x="15.24" y="53.34" rot="R90"/>
                         <instance part="C3" gate="G$1" x="22.86" y="35.56"/>
@@ -9249,6 +9249,7 @@
                                 <wire x1="106.68" y1="30.48" x2="68.58" y2="30.48" width="0.1524" layer="91"/>
                                 <pinref part="J1" gate="G$1" pin="8"/>
                                 <wire x1="68.58" y1="30.48" x2="68.58" y2="17.78" width="0.1524" layer="91"/>
+                                <junction x="91.44" y="86.36"/>
                             </segment>
                         </net>
                         <net name="N$1" class="0">
@@ -9271,6 +9272,7 @@
                                 <wire x1="27.94" y1="40.64" x2="27.94" y2="27.94" width="0.1524" layer="91"/>
                                 <wire x1="27.94" y1="27.94" x2="33.02" y2="27.94" width="0.1524" layer="91"/>
                                 <wire x1="33.02" y1="27.94" x2="33.02" y2="22.86" width="0.1524" layer="91"/>
+                                <junction x="33.02" y="22.86"/>
                             </segment>
                         </net>
                         <net name="N$8" class="0">
@@ -9288,6 +9290,7 @@
                                 <wire x1="78.74" y1="33.02" x2="104.14" y2="33.02" width="0.1524" layer="91"/>
                                 <wire x1="104.14" y1="33.02" x2="104.14" y2="60.96" width="0.1524" layer="91"/>
                                 <wire x1="104.14" y1="60.96" x2="96.52" y2="60.96" width="0.1524" layer="91"/>
+                                <junction x="96.52" y="60.96"/>
                             </segment>
                         </net>
                         <net name="N$11" class="0">
@@ -9340,6 +9343,11 @@
                     </nets>
                 </sheet>
             </sheets>
+            <errors>
+                <approved hash="101,1,50.8,93.98,PAD1,P,,,,"/>
+                <approved hash="101,1,73.66,93.98,PAD4,P,,,,"/>
+                <approved hash="101,1,83.82,93.98,PAD5,P,,,,"/>
+            </errors>
         </schematic>
     </drawing>
 </eagle>
