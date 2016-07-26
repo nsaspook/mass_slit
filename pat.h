@@ -1,6 +1,6 @@
 #ifndef PAT_H_INCLUDED
 #define PAT_H_INCLUDED
-//	hardware defines
+//	hardware defines 
 
 #ifdef INTTYPES
 #include <stdint.h>

@@ -1,6 +1,6 @@
 #include "blinker.h"
 
-uint8_t blink_led(uint8_t led, uint8_t on_led, uint8_t start) // blink and store status of 8 leds
+uint8_t blink_led(uint8_t led, uint8_t on_led, uint8_t start) // blink and store status of 8 leds 
 {
 	if (led > 7) return LEDS.out_byte;
 

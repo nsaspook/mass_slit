@@ -1,4 +1,4 @@
-/*
+/* 
  * File:   blinker.h
  * Author: root
  *

@@ -1,5 +1,5 @@
 
-// PIC18F1320 Configuration Bit Settings
+// PIC18F1320 Configuration Bit Settings 
 
 #include <p18f1320.h>
 
