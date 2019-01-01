@@ -74,7 +74,7 @@ union Obits2 {
 #define TACHIN		LATBbits.LATB0
 #define RPMLED		LATBbits.LATB5
 
-#define RPM_COUNT	1
+#define RPM_COUNT	2
 #define SLEEP_COUNT	30
 #define STOP_RAMP	1
 #define START_RAMP	1

@@ -178,7 +178,7 @@ void tm_handler(void) // timer/serial functions are handled here
 			V.stop_tick--;
 		}
 
-		if ((++V.mod_count % 2) == 0) {
+		if (!(++V.mod_count % 2)) {
 			// check for spin motor movement
 			if (V.spin_count >= RPM_COUNT) {
 				V.spinning = TRUE;
