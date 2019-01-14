@@ -61,7 +61,7 @@
  * 1.0 beta production test version.
  * 1.1 reduce 'at RPM' time during spinup
  * 
- * HiRose din connector 1 sig out, 2 sig ret, 3 shield/gnd, 4 24vdc power in, 5 rs-232 rx, 6 rs-232 tx
+ * HiRose din connector 1 sig out (white), 2 sig ret(black), 3 shield/gnd(green), 4 24vdc power in(red), 5 rs-232 rx, 6 rs-232 tx
  * 
  * Sensor connector: 
  * Cherry gs100502 sensor	: BRN/Vcc-Pin4, BLK/OUT-Pin1, BLU/GND-Pin2 
