@@ -320,9 +320,9 @@ int16_t sw_work(void)
 	 * shutdown the controller if nothing is happening
 	 */
 	if (V.sleep_ticks > SLEEP_COUNT) {
-		LED1 = 0;
-		LED2 = 0;
-		RPMLED = 0;
+		LED1 = 1;
+		LED2 = 1;
+		RPMLED = 1;
 		OSCCON = 0x00; // sleep, no clocks
 		Sleep();
 		OSCCON = 0x72;

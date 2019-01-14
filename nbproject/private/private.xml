@@ -7,12 +7,8 @@
             <file>file:/sdd/work/mass_slit/pat.c</file>
         </group>
         <group>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/main.c</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/mcc_generated_files/ext_int.c</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/pov_mon.h</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/pov_mon.c</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/mcc_generated_files/interrupt_manager.c</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/mcc_generated_files/tmr5.c</file>
+            <file>file:/fred/mass_slit/pat.c</file>
+            <file>file:/fred/mx320_harmony/mx320_test.X/mx32_harm/firmware/src/main.c</file>
         </group>
     </open-files>
 </project-private>
