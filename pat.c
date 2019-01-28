@@ -395,21 +395,22 @@ void init_rmsmon(void)
 /* give good spin signal at powerup */
 uint8_t init_rms_params(void)
 {
+	V.sleep_ticks=0;
 	V.spin_count = RPM_COUNT;
 	V.stop_tick = MAX_TICK;
 	V.motor_ramp = START_RAMP;
 	V.spinning = TRUE;
 	V.sample_freq = SAMPLEFREQ;
-	V.slew_freq = SAMPLEFREQ_R;
+	V.slew_freq = SAMPLEFREQ;
 	V.valid = TRUE;
 	V.spurious_int = 0;
 	V.comm = FALSE;
 	V.comm_state = 0;
-	putrsUSART(status1);
-	putrsUSART(build_date);
-	putrsUSART(spacer0);
-	putrsUSART(build_time);
-	putrsUSART(spacer1);
+//	putrsUSART(status1);
+//	putrsUSART(build_date);
+//	putrsUSART(spacer0);
+//	putrsUSART(build_time);
+//	putrsUSART(spacer1);
 	if (V.boot_code) {
 		itoa(RCON, str);
 		putrsUSART(boot0);
