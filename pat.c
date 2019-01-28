@@ -392,12 +392,13 @@ void init_rmsmon(void)
 	INTCONbits.GIEH = 1;
 }
 
+/* give good spin signal at powerup */
 uint8_t init_rms_params(void)
 {
-	V.spin_count = 0;
-	V.stop_tick = 0;
-	V.motor_ramp = 0;
-	V.spinning = FALSE;
+	V.spin_count = RPM_COUNT;
+	V.stop_tick = MAX_TICK;
+	V.motor_ramp = START_RAMP;
+	V.spinning = TRUE;
 	V.sample_freq = SAMPLEFREQ;
 	V.slew_freq = SAMPLEFREQ_R;
 	V.valid = TRUE;
