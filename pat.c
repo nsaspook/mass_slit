@@ -106,6 +106,7 @@ int8_t str[12];
 volatile uint16_t timer0_off = TIMEROFFSET;
 near uint16_t blink_speed;
 
+const far rom int8_t VER[] = "\r\nAP_V_MS_1.0\r\n";
 const far rom int8_t build_date[] = __DATE__, build_time[] = __TIME__;
 const far rom int8_t
 spacer0[] = " ",
@@ -139,7 +140,7 @@ void tm_handler(void) // timer/serial functions are handled here
 		V.valid = TRUE;
 		INTCONbits.INT0IF = FALSE;
 		V.spin_count++;
-		V.sleep_ticks = OFF;
+		V.sleep_ticks = 0;
 		RPMLED = !RPMLED;
 	}
 
@@ -369,7 +370,7 @@ void init_rmsmon(void)
 	OpenTimer1(TIMER_INT_ON & T1_16BIT_RW & T1_SOURCE_INT & T1_PS_1_4 & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF); // Viision RPM signal
 	WriteTimer1(SAMPLEFREQ);
 	/* Light-link data input */
-	COMM_ENABLE = TRUE; // for PICDEM4 onboard RS-232, not used on custom board
+//	COMM_ENABLE = TRUE; // for PICDEM4 onboard RS-232, not used on custom board
 	OpenUSART(USART_TX_INT_OFF &
 		USART_RX_INT_ON &
 		USART_ASYNCH_MODE &
@@ -387,15 +388,12 @@ void init_rmsmon(void)
 	INTCON2bits.RBPU = 0; // enable weak pull-ups
 
 	init_rms_params();
-
-	/* Enable all high priority interrupts */
-	INTCONbits.GIEH = 1;
 }
 
 /* give good spin signal at powerup */
 uint8_t init_rms_params(void)
 {
-	V.sleep_ticks=0;
+	V.sleep_ticks = 0;
 	V.spin_count = RPM_COUNT;
 	V.stop_tick = MAX_TICK;
 	V.motor_ramp = START_RAMP;
@@ -406,11 +404,14 @@ uint8_t init_rms_params(void)
 	V.spurious_int = 0;
 	V.comm = FALSE;
 	V.comm_state = 0;
-//	putrsUSART(status1);
-//	putrsUSART(build_date);
-//	putrsUSART(spacer0);
-//	putrsUSART(build_time);
-//	putrsUSART(spacer1);
+	/* Enable all high priority interrupts */
+	INTCONbits.GIEH = 1;
+	putrsUSART(VER);
+	putrsUSART(status1);
+	putrsUSART(build_date);
+	putrsUSART(spacer0);
+	putrsUSART(build_time);
+	putrsUSART(spacer1);
 	if (V.boot_code) {
 		itoa(RCON, str);
 		putrsUSART(boot0);
