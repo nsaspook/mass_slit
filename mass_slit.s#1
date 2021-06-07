@@ -10271,6 +10271,8 @@
 <part name="PAD13" library="wirepad" deviceset="1,6/0,9" device=""/>
 <part name="PAD14" library="wirepad" deviceset="1,6/0,9" device=""/>
 <part name="RESET" library="wirepad" deviceset="1,6/0,9" device=""/>
+<part name="R5" library="resistor" deviceset="R-US_" device="0204/2V"/>
+<part name="LED2" library="led" deviceset="LED" device="3MM"/>
 </parts>
 <sheets>
 <sheet>
@@ -10423,6 +10425,14 @@
 <attribute name="NAME" x="29.337" y="95.8342" size="1.778" layer="95"/>
 <attribute name="VALUE" x="29.337" y="90.678" size="1.778" layer="96"/>
 </instance>
+<instance part="R5" gate="G$1" x="5.08" y="60.96" smashed="yes" rot="R90">
+<attribute name="NAME" x="3.5814" y="57.15" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="8.382" y="57.15" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="LED2" gate="G$1" x="5.08" y="71.12" smashed="yes">
+<attribute name="NAME" x="8.636" y="66.548" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="10.795" y="66.548" size="1.778" layer="96" rot="R90"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -10510,6 +10520,10 @@
 <junction x="66.04" y="88.9"/>
 <pinref part="LED1" gate="G$1" pin="A"/>
 <wire x1="27.94" y1="76.2" x2="27.94" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="27.94" y1="76.2" x2="5.08" y2="76.2" width="0.1524" layer="91"/>
+<pinref part="LED2" gate="G$1" pin="A"/>
+<wire x1="5.08" y1="76.2" x2="5.08" y2="73.66" width="0.1524" layer="91"/>
+<junction x="5.08" y="73.66"/>
 </segment>
 <segment>
 <pinref part="R6" gate="G$1" pin="2"/>
@@ -10591,6 +10605,7 @@
 <segment>
 <pinref part="IC1" gate="G$1" pin="RA1/AN1/LVDIN"/>
 <pinref part="R4" gate="G$1" pin="1"/>
+<junction x="38.1" y="50.8"/>
 </segment>
 </net>
 <net name="N$9" class="0">
@@ -10752,6 +10767,24 @@
 <wire x1="17.78" y1="60.96" x2="12.7" y2="60.96" width="0.1524" layer="91"/>
 <junction x="12.7" y="60.96"/>
 <junction x="38.1" y="43.18"/>
+</segment>
+</net>
+<net name="N$22" class="0">
+<segment>
+<pinref part="IC1" gate="G$1" pin="RA2/AN2/VREF-"/>
+<wire x1="38.1" y1="48.26" x2="33.02" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="48.26" x2="33.02" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="55.88" x2="5.08" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="R5" gate="G$1" pin="1"/>
+<junction x="5.08" y="55.88"/>
+<junction x="38.1" y="48.26"/>
+</segment>
+</net>
+<net name="N$23" class="0">
+<segment>
+<pinref part="R5" gate="G$1" pin="2"/>
+<pinref part="LED2" gate="G$1" pin="C"/>
+<junction x="5.08" y="66.04"/>
 </segment>
 </net>
 </nets>

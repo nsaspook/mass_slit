@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.2.2">
+<eagle version="9.4.1">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1859,31 +1859,31 @@
 <attribute name="NAME" x="20.828" y="32.766" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="21.59" y="32.35" size="0.0254" layer="27"/>
 </element>
-<element name="IN-" library="wirepad" package="1,6/0,9" value="" x="24.13" y="31.75" smashed="yes">
+<element name="IN+24" library="wirepad" package="1,6/0,9" value="" x="24.13" y="31.75" smashed="yes">
 <attribute name="NAME" x="23.368" y="32.766" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="24.13" y="32.35" size="0.0254" layer="27"/>
 </element>
-<element name="IN+" library="wirepad" package="1,6/0,9" value="" x="26.67" y="31.75" smashed="yes">
+<element name="IN-24" library="wirepad" package="1,6/0,9" value="" x="26.67" y="31.75" smashed="yes">
 <attribute name="NAME" x="25.908" y="32.766" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="26.67" y="32.35" size="0.0254" layer="27"/>
 </element>
-<element name="C1" library="resistor" package="C025-040X050" value="" x="31.75" y="21.59" smashed="yes" rot="R270">
+<element name="C1" library="resistor" package="C025-040X050" value="10uf" x="31.75" y="21.59" smashed="yes" rot="R270">
 <attribute name="NAME" x="33.909" y="23.876" size="1.27" layer="25" ratio="10" rot="R270"/>
 <attribute name="VALUE" x="28.321" y="23.876" size="1.27" layer="27" ratio="10" rot="R270"/>
 </element>
-<element name="C3" library="capacitor-wima" package="C5B2.5" value="" x="30.48" y="10.16" smashed="yes">
+<element name="C3" library="capacitor-wima" package="C5B2.5" value="0.1" x="30.48" y="10.16" smashed="yes">
 <attribute name="NAME" x="28.448" y="11.684" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="28.448" y="7.366" size="1.27" layer="27" ratio="10"/>
 </element>
-<element name="C4" library="resistor" package="C025-040X050" value="" x="7.62" y="12.7" smashed="yes">
+<element name="C4" library="resistor" package="C025-040X050" value="10uf" x="7.62" y="12.7" smashed="yes">
 <attribute name="NAME" x="5.334" y="14.859" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="5.334" y="9.271" size="1.27" layer="27" ratio="10"/>
 </element>
-<element name="C5" library="capacitor-wima" package="C5B2.5" value="" x="19.05" y="12.7" smashed="yes">
+<element name="C5" library="capacitor-wima" package="C5B2.5" value="0.1" x="19.05" y="12.7" smashed="yes">
 <attribute name="NAME" x="17.018" y="14.224" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="17.018" y="9.906" size="1.27" layer="27" ratio="10"/>
 </element>
-<element name="C6" library="resistor" package="C025-040X050" value="" x="24.13" y="27.94" smashed="yes">
+<element name="C6" library="resistor" package="C025-040X050" value="10uf" x="24.13" y="27.94" smashed="yes">
 <attribute name="NAME" x="21.844" y="30.099" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="21.844" y="24.511" size="1.27" layer="27" ratio="10"/>
 </element>
@@ -1891,19 +1891,19 @@
 <attribute name="NAME" x="13.2588" y="5.6388" size="1.27" layer="25"/>
 <attribute name="VALUE" x="5.1638" y="11.1407" size="1.27" layer="27"/>
 </element>
-<element name="R1" library="resistor" package="RTRIM3339P" value="" x="30.48" y="3.81" smashed="yes" rot="R180">
+<element name="R1" library="resistor" package="RTRIM3339P" value="2000" x="30.48" y="3.81" smashed="yes" rot="R180">
 <attribute name="NAME" x="32.995" y="-0.395" size="1.27" layer="25" rot="R180"/>
 <attribute name="VALUE" x="32.995" y="9.415" size="1.27" layer="27" rot="R180"/>
 </element>
-<element name="R2" library="resistor" package="0204V" value="" x="12.7" y="12.7" smashed="yes">
+<element name="R2" library="resistor" package="0204V" value="220" x="12.7" y="12.7" smashed="yes">
 <attribute name="NAME" x="10.5664" y="13.8684" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="10.5664" y="10.3886" size="1.27" layer="27" ratio="10"/>
 </element>
-<element name="R3" library="resistor" package="0204V" value="" x="16.51" y="27.94" smashed="yes" rot="R90">
+<element name="R3" library="resistor" package="0204V" value="10000" x="16.51" y="27.94" smashed="yes" rot="R90">
 <attribute name="NAME" x="15.3416" y="25.8064" size="1.27" layer="25" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="18.8214" y="25.8064" size="1.27" layer="27" ratio="10" rot="R90"/>
 </element>
-<element name="R4" library="resistor" package="0204V" value="" x="19.05" y="27.94" smashed="yes" rot="R90">
+<element name="R4" library="resistor" package="0204V" value="220" x="19.05" y="27.94" smashed="yes" rot="R90">
 <attribute name="NAME" x="17.8816" y="25.8064" size="1.27" layer="25" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="21.3614" y="25.8064" size="1.27" layer="27" ratio="10" rot="R90"/>
 </element>
@@ -1951,7 +1951,7 @@
 <attribute name="NAME" x="29.718" y="34.036" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="30.48" y="33.62" size="0.0254" layer="27"/>
 </element>
-<element name="R5" library="resistor" package="0204V" value="" x="13.97" y="27.94" smashed="yes" rot="R90">
+<element name="R5" library="resistor" package="0204V" value="220" x="13.97" y="27.94" smashed="yes" rot="R90">
 <attribute name="NAME" x="12.8016" y="25.8064" size="1.27" layer="25" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="16.2814" y="25.8064" size="1.27" layer="27" ratio="10" rot="R90"/>
 </element>
@@ -2102,8 +2102,8 @@
 <wire x1="33.048" y1="3.9015" x2="33.02" y2="3.81" width="0.254" layer="1"/>
 <wire x1="31.9005" y1="20.196" x2="31.75" y2="20.32" width="0.254" layer="1"/>
 </signal>
-<signal name="N$5">
-<contactref element="IN+" pad="1"/>
+<signal name="-24">
+<contactref element="IN-24" pad="1"/>
 <contactref element="C4" pad="1"/>
 <contactref element="J1" pad="7"/>
 <wire x1="6.426" y1="11.2455" x2="6.426" y2="12.6225" width="0.254" layer="16"/>
@@ -2121,8 +2121,8 @@
 <wire x1="26.622" y1="31.9005" x2="26.67" y2="31.75" width="0.254" layer="16"/>
 <wire x1="6.426" y1="12.852" x2="6.35" y2="12.7" width="0.254" layer="16"/>
 </signal>
-<signal name="N$6">
-<contactref element="IN-" pad="1"/>
+<signal name="+24">
+<contactref element="IN+24" pad="1"/>
 <contactref element="C4" pad="2"/>
 <contactref element="J1" pad="8"/>
 <wire x1="8.721" y1="11.2455" x2="8.721" y2="12.6225" width="0.254" layer="1"/>

@@ -7,14 +7,15 @@
             <file>file:/sdd/work/mass_slit/pat.c</file>
         </group>
         <group>
+            <file>file:/fred/vcan/firmware/src/OledGrph.c</file>
             <file>file:/fred/25k22_hd_pov/hdpov25k22.X/mcc_generated_files/tmr1.c</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/mcc_generated_files/ccp4.c</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/mcc_generated_files/interrupt_manager.c</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/mcc_generated_files/ext_int.c</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/pov_mon.h</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/pov_mon.c</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/mcc_generated_files/tmr5.c</file>
-            <file>file:/fred/25k22_hd_pov/hdpov25k22.X/mcc_generated_files/tmr3.c</file>
+            <file>file:/fred/vcan/firmware/src/tic12400.c</file>
+            <file>file:/fred/vcan/firmware/src/vcan.h</file>
+            <file>file:/fred/vcan/firmware/src/config/default/peripheral/spi/spi_master/plib_spi5_master.c</file>
+            <file>file:/fred/vcan/firmware/src/pid.c</file>
+            <file>file:/fred/vcan/firmware/src/tic12400.h</file>
+            <file>file:/fred/vcan/firmware/src/main.c</file>
+            <file>file:/fred/vcan/firmware/src/OledDriver.h</file>
         </group>
     </open-files>
 </project-private>

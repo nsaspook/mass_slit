@@ -1843,11 +1843,11 @@
 <attribute name="NAME" x="8.128" y="32.766" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="8.89" y="32.35" size="0.0254" layer="27"/>
 </element>
-<element name="OUT-" library="wirepad" package="1,6/0,9" value="" x="11.43" y="31.75" smashed="yes">
+<element name="O-" library="wirepad" package="1,6/0,9" value="" x="11.43" y="31.75" smashed="yes">
 <attribute name="NAME" x="10.668" y="32.766" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="11.43" y="32.35" size="0.0254" layer="27"/>
 </element>
-<element name="OUT+" library="wirepad" package="1,6/0,9" value="" x="13.97" y="31.75" smashed="yes">
+<element name="O+" library="wirepad" package="1,6/0,9" value="" x="13.97" y="31.75" smashed="yes">
 <attribute name="NAME" x="13.208" y="32.766" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="13.97" y="32.35" size="0.0254" layer="27"/>
 </element>
@@ -1957,7 +1957,7 @@
 <contactref element="R1" pad="3"/>
 <contactref element="J1" pad="1"/>
 <contactref element="J1" pad="5"/>
-<contactref element="OUT-" pad="1"/>
+<contactref element="O-" pad="1"/>
 <contactref element="IC1" pad="5"/>
 <contactref element="C3" pad="1"/>
 <contactref element="C6" pad="1"/>
@@ -2024,7 +2024,7 @@
 <contactref element="IC1" pad="14"/>
 <contactref element="C6" pad="2"/>
 <contactref element="J2" pad="2"/>
-<contactref element="OUT+" pad="1"/>
+<contactref element="O+" pad="1"/>
 <contactref element="R3" pad="2"/>
 <contactref element="LED1" pad="A"/>
 <contactref element="R6" pad="2"/>
