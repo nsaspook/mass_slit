@@ -1,6 +1,6 @@
 #ifndef PAT_H_INCLUDED
 #define PAT_H_INCLUDED
-//	hardware defines 
+//	hardware defines
 
 #ifdef INTTYPES
 #include <stdint.h>
@@ -19,30 +19,30 @@ typedef signed long long int64_t;
 #endif
 
 typedef struct V_data { // ISR data structure
-    uint16_t blink, blink_out, blink_alt, spin_count, sample_freq, max_freq,
-    slew_freq, spurious_int, hi_rez, hi_rez_count;
-    uint8_t valid : 1;
-    uint8_t comm : 1;
-    uint8_t comm_state, sleep_ticks;
-    uint8_t spinning : 1;
-    uint8_t boot_code : 1;
-    uint8_t stop_tick, motor_ramp, mod_count, rx_data, tx_data;
+	uint16_t blink, blink_out, blink_alt, spin_count, sample_freq, max_freq,
+	slew_freq, spurious_int, hi_rez, hi_rez_count;
+	uint8_t valid : 1;
+	uint8_t comm : 1;
+	uint8_t comm_state, sleep_ticks;
+	uint8_t spinning : 1;
+	uint8_t boot_code : 1;
+	uint8_t stop_tick, motor_ramp, mod_count, rx_data, tx_data;
 } V_data;
 
 typedef struct OUTBITS2 {
-    uint8_t b0 : 1;
-    uint8_t b1 : 1;
-    uint8_t b2 : 1;
-    uint8_t b3 : 1;
-    uint8_t b4 : 1;
-    uint8_t b5 : 1;
-    uint8_t b6 : 1;
-    uint8_t b7 : 1;
+	uint8_t b0 : 1;
+	uint8_t b1 : 1;
+	uint8_t b2 : 1;
+	uint8_t b3 : 1;
+	uint8_t b4 : 1;
+	uint8_t b5 : 1;
+	uint8_t b6 : 1;
+	uint8_t b7 : 1;
 } OUTBITS_TYPE2;
 
 union Obits2 {
-    uint8_t out_byte;
-    OUTBITS_TYPE2 out_bits;
+	uint8_t out_byte;
+	OUTBITS_TYPE2 out_bits;
 };
 
 #define TRUE	1
@@ -59,7 +59,7 @@ union Obits2 {
 
 #define RMSPORTA	TRISA
 #define RMSPORTB	TRISB
-#define RMSPORT_IOA	0b00000000		// all outputs RMS signal on 
+#define RMSPORT_IOA	0b00000000		// all outputs RMS signal on
 #define RMSPORT_IOB	0b00010001		// Rs-232 transmit on B1, receive on B4, hall gear sensor on B0
 
 #define LED1		LATAbits.LATA1
@@ -67,7 +67,7 @@ union Obits2 {
 #define LED3		LATAbits.LATA3
 #define LED4		LATBbits.LATB6
 #define LED5		LATBbits.LATB7
-#define LED6		LATAbits.LATA6		
+#define LED6		LATAbits.LATA6
 #define COMM_ENABLE	LATBbits.LATB3
 
 #define RPMOUT		LATAbits.LATA0
@@ -82,4 +82,4 @@ union Obits2 {
 #define MAX_SPURIOUS	10
 #define SPIN_LIMIT_H	10
 
-#endif 
+#endif

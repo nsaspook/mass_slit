@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.4.1">
+<eagle version="9.6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1927,7 +1927,7 @@
 <attribute name="NAME" x="13.2588" y="-1.9812" size="1.27" layer="25"/>
 <attribute name="VALUE" x="5.1638" y="3.5207" size="1.27" layer="27"/>
 </element>
-<element name="R6" library="resistor" package="0204V" value="" x="26.67" y="12.7" smashed="yes">
+<element name="R6" library="resistor" package="0204V" value="330" x="26.67" y="12.7" smashed="yes">
 <attribute name="NAME" x="24.5364" y="13.8684" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="24.5364" y="10.3886" size="1.27" layer="27" ratio="10"/>
 </element>

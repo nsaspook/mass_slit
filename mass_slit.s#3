@@ -10234,8 +10234,8 @@
 <parts>
 <part name="IC1" library="microchip" deviceset="PIC18F1*20" device="P" technology="2"/>
 <part name="P8" library="wirepad" deviceset="1,6/0,9" device=""/>
-<part name="OUT-" library="wirepad" deviceset="1,6/0,9" device=""/>
-<part name="OUT+" library="wirepad" deviceset="1,6/0,9" device=""/>
+<part name="O-" library="wirepad" deviceset="1,6/0,9" device=""/>
+<part name="O+" library="wirepad" deviceset="1,6/0,9" device=""/>
 <part name="P5" library="wirepad" deviceset="1,6/0,9" device=""/>
 <part name="P3" library="wirepad" deviceset="1,6/0,9" device=""/>
 <part name="IN-" library="wirepad" deviceset="1,6/0,9" device=""/>
@@ -10285,11 +10285,11 @@
 <attribute name="NAME" x="47.117" y="95.8342" size="1.778" layer="95"/>
 <attribute name="VALUE" x="47.117" y="90.678" size="1.778" layer="96"/>
 </instance>
-<instance part="OUT-" gate="1" x="55.88" y="93.98" smashed="yes">
+<instance part="O-" gate="1" x="55.88" y="93.98" smashed="yes">
 <attribute name="NAME" x="54.737" y="95.8342" size="1.778" layer="95"/>
 <attribute name="VALUE" x="54.737" y="90.678" size="1.778" layer="96"/>
 </instance>
-<instance part="OUT+" gate="1" x="63.5" y="93.98" smashed="yes">
+<instance part="O+" gate="1" x="63.5" y="93.98" smashed="yes">
 <attribute name="NAME" x="62.357" y="95.8342" size="1.778" layer="95"/>
 <attribute name="VALUE" x="62.357" y="90.678" size="1.778" layer="96"/>
 </instance>
@@ -10444,7 +10444,7 @@
 <pinref part="VSS6" gate="G$1" pin="VSS"/>
 </segment>
 <segment>
-<pinref part="OUT-" gate="1" pin="P"/>
+<pinref part="O-" gate="1" pin="P"/>
 <pinref part="IC1" gate="G$1" pin="VSS@AVSS"/>
 <wire x1="38.1" y1="38.1" x2="33.02" y2="38.1" width="0.1524" layer="91"/>
 <wire x1="33.02" y1="38.1" x2="22.86" y2="38.1" width="0.1524" layer="91"/>
@@ -10502,7 +10502,7 @@
 <pinref part="J2" gate="G$1" pin="2"/>
 <wire x1="66.04" y1="81.28" x2="71.12" y2="81.28" width="0.1524" layer="91"/>
 <wire x1="71.12" y1="81.28" x2="71.12" y2="86.36" width="0.1524" layer="91"/>
-<pinref part="OUT+" gate="1" pin="P"/>
+<pinref part="O+" gate="1" pin="P"/>
 <wire x1="66.04" y1="93.98" x2="66.04" y2="88.9" width="0.1524" layer="91"/>
 <junction x="66.04" y="81.28"/>
 <pinref part="VDD8" gate="G$1" pin="VDD"/>

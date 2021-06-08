@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../pat.c ../blinker.c
+SOURCEFILES_QUOTED_IF_SPACED=blinker.c pat.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/pat.o ${OBJECTDIR}/_ext/1472/blinker.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/pat.o.d ${OBJECTDIR}/_ext/1472/blinker.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/blinker.o ${OBJECTDIR}/pat.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/blinker.o.d ${OBJECTDIR}/pat.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1472/pat.o ${OBJECTDIR}/_ext/1472/blinker.o
+OBJECTFILES=${OBJECTDIR}/blinker.o ${OBJECTDIR}/pat.o
 
 # Source Files
-SOURCEFILES=../pat.c ../blinker.c
+SOURCEFILES=blinker.c pat.c
 
 
 
@@ -92,7 +92,7 @@ endif
 
 MP_PROCESSOR_OPTION=18F1320
 MP_PROCESSOR_OPTION_LD=18f1320
-MP_LINKER_DEBUG_OPTION=
+MP_LINKER_DEBUG_OPTION= -u_DEBUGCODESTART=0x1e40 -u_DEBUGCODELEN=0x1c0 -u_DEBUGDATASTART=0xf4 -u_DEBUGDATALEN=0xb
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
@@ -102,38 +102,38 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/1472/pat.o: ../pat.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/pat.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/pat.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) --verbose -ml -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1472/pat.o   ../pat.c 
-	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1472/pat.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/pat.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+${OBJECTDIR}/blinker.o: blinker.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/blinker.o.d 
+	@${RM} ${OBJECTDIR}/blinker.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) --verbose -ml -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/blinker.o   blinker.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/blinker.o 
+	@${FIXDEPS} "${OBJECTDIR}/blinker.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
 	
-${OBJECTDIR}/_ext/1472/blinker.o: ../blinker.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/blinker.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/blinker.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) --verbose -ml -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1472/blinker.o   ../blinker.c 
-	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1472/blinker.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/blinker.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+${OBJECTDIR}/pat.o: pat.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/pat.o.d 
+	@${RM} ${OBJECTDIR}/pat.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) --verbose -ml -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/pat.o   pat.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/pat.o 
+	@${FIXDEPS} "${OBJECTDIR}/pat.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
 	
 else
-${OBJECTDIR}/_ext/1472/pat.o: ../pat.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/pat.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/pat.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) --verbose -ml -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1472/pat.o   ../pat.c 
-	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1472/pat.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/pat.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+${OBJECTDIR}/blinker.o: blinker.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/blinker.o.d 
+	@${RM} ${OBJECTDIR}/blinker.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) --verbose -ml -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/blinker.o   blinker.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/blinker.o 
+	@${FIXDEPS} "${OBJECTDIR}/blinker.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
 	
-${OBJECTDIR}/_ext/1472/blinker.o: ../blinker.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/blinker.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/blinker.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) --verbose -ml -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1472/blinker.o   ../blinker.c 
-	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1472/blinker.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/blinker.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+${OBJECTDIR}/pat.o: pat.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/pat.o.d 
+	@${RM} ${OBJECTDIR}/pat.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) --verbose -ml -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/pat.o   pat.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/pat.o 
+	@${FIXDEPS} "${OBJECTDIR}/pat.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
 	
 endif
 
@@ -142,11 +142,11 @@ endif
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 dist/${CND_CONF}/${IMAGE_TYPE}/mass_slit.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_LD} $(MP_EXTRA_LD_PRE)   -p$(MP_PROCESSOR_OPTION_LD)  -w -x -u_DEBUG -m"${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"  -z__MPLAB_BUILD=1  -u_CRUNTIME -z__MPLAB_DEBUG=1 $(MP_LINKER_DEBUG_OPTION) -l ${MP_CC_DIR}/../lib  -o dist/${CND_CONF}/${IMAGE_TYPE}/mass_slit.${IMAGE_TYPE}.${OUTPUT_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}   
+	${MP_LD} $(MP_EXTRA_LD_PRE)   -p$(MP_PROCESSOR_OPTION_LD)  -w -x -u_DEBUG -m"${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map" -l"../../opt/microchip/mplabc18/v3.40/lib"  -z__MPLAB_BUILD=1  -u_CRUNTIME -z__MPLAB_DEBUG=1 $(MP_LINKER_DEBUG_OPTION) -l ${MP_CC_DIR}/../lib  -o dist/${CND_CONF}/${IMAGE_TYPE}/mass_slit.${IMAGE_TYPE}.${OUTPUT_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}   
 else
 dist/${CND_CONF}/${IMAGE_TYPE}/mass_slit.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_LD} $(MP_EXTRA_LD_PRE)   -p$(MP_PROCESSOR_OPTION_LD)  -w  -m"${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"  -z__MPLAB_BUILD=1  -u_CRUNTIME -l ${MP_CC_DIR}/../lib  -o dist/${CND_CONF}/${IMAGE_TYPE}/mass_slit.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}   
+	${MP_LD} $(MP_EXTRA_LD_PRE)   -p$(MP_PROCESSOR_OPTION_LD)  -w  -m"${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map" -l"../../opt/microchip/mplabc18/v3.40/lib"  -z__MPLAB_BUILD=1  -u_CRUNTIME -l ${MP_CC_DIR}/../lib  -o dist/${CND_CONF}/${IMAGE_TYPE}/mass_slit.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}   
 endif
 
 

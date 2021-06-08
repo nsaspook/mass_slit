@@ -1,5 +1,5 @@
 
-// PIC18F1320 Configuration Bit Settings 
+// PIC18F1320 Configuration Bit Settings
 
 #include <p18f1320.h>
 
@@ -14,15 +14,15 @@
 // BORV = No Setting
 
 // CONFIG2H
-#pragma config WDT = ON        // Watchdog Timer Enable bit 
-#pragma config WDTPS = 4096    // Watchdog Timer Postscale Select bits 
+#pragma config WDT = ON        // Watchdog Timer Enable bit
+#pragma config WDTPS = 4096    // Watchdog Timer Postscale Select bits
 
 // CONFIG3H
 #pragma config MCLRE = ON       // MCLR Pin Enable bit (MCLR pin enabled, RA5 input pin disabled)
 
 // CONFIG4L
 #pragma config STVR = ON        // Stack Full/Underflow Reset Enable bit (Stack full/underflow will cause Reset)
-#pragma config LVP = OFF        // Low-Voltage ICSP Enable bit (Low-Voltage ICSP disabled)
+#pragma config LVP = OFF       // Low-Voltage ICSP Enable bit (Low-Voltage ICSP disabled)
 
 // CONFIG5L
 #pragma config CP0 = ON        // Code Protection bit (Block 0 (00200-000FFFh) not code-protected)
@@ -54,26 +54,26 @@
  * std input 57 pulses per min, output 850Hz
  * Runs on the PIC18F1320, with watchdog and software checks to be
  * sure we only generate the correct signal when the motor is running.
- * 
+ *
  * Version
  * 0.1  config chip to translate input pulses to the correct RPM signal
  * 0.2 rs-232 debug RX DIP-pin7, TX DIP-pin8
  * 1.0 beta production test version.
  * 1.1 reduce 'at RPM' time during spinup
- * 
+ *
  * HiRose din connector 1 sig out (white), 2 sig ret(black), 3 shield/gnd(green), 4 24vdc power in(red), 5 rs-232 rx, 6 rs-232 tx
- * 
- * Sensor connector: 
- * Cherry gs100502 sensor	: BRN/Vcc-Pin4, BLK/OUT-Pin1, BLU/GND-Pin2 
+ *
+ * Sensor connector:
+ * Cherry gs100502 sensor	: BRN/Vcc-Pin4, BLK/OUT-Pin1, BLU/GND-Pin2
  * Honeywell LCZ260		: RED/Vcc-pin4, WHT/OUT=pin1, BLK/COM0pin2
- * 
+ *
  * RMS Assy connector: 1 SLIT-FOR, 2 SLIT-REC, 3 +24, 4 +24, 6 power 24v gnd, 10 24v power gnd
  * 11 TACH sig, 12 TACH ref/gnd
- * 
+ *
  * 120VAC motor power plug: 1 Black: Hot, 2 N/A, 3 White: Neutral, 4 Green: Ground
  * motor connections        1 Red: Hot,   2 N/C, 3 Blue: Neutral,  4 GreenL Ground
  * motor run cap red/black with red wire to power plug
- * 
+ *
  * Power for the controller box is tapped from pin 3 or 4 for power, pin 10 for ground and connected to pin 4 on the RMS
  * original Molex sensor connector. This 24vdc is converted inside the controller with a isolated
  * ground DC-DC converter to 5vdc for the controller and Honeywell Hall-effect sensor.
@@ -370,7 +370,7 @@ void init_rmsmon(void)
 	OpenTimer1(TIMER_INT_ON & T1_16BIT_RW & T1_SOURCE_INT & T1_PS_1_4 & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF); // Viision RPM signal
 	WriteTimer1(SAMPLEFREQ);
 	/* Light-link data input */
-//	COMM_ENABLE = TRUE; // for PICDEM4 onboard RS-232, not used on custom board
+	//	COMM_ENABLE = TRUE; // for PICDEM4 onboard RS-232, not used on custom board
 	OpenUSART(USART_TX_INT_OFF &
 		USART_RX_INT_ON &
 		USART_ASYNCH_MODE &

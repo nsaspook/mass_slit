@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.4.1">
+<eagle version="9.6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -10263,7 +10263,7 @@
 <part name="VDD6" library="supply1" deviceset="VDD" device=""/>
 <part name="VDD8" library="supply1" deviceset="VDD" device=""/>
 <part name="VSS7" library="supply1" deviceset="VSS" device=""/>
-<part name="R6" library="resistor" deviceset="R-US_" device="0204/2V"/>
+<part name="R6" library="resistor" deviceset="R-US_" device="0204/2V" value="330"/>
 <part name="VDD1" library="supply1" deviceset="VDD" device=""/>
 <part name="VSS2" library="supply1" deviceset="VSS" device=""/>
 <part name="PAD11" library="wirepad" deviceset="1,6/0,9" device=""/>

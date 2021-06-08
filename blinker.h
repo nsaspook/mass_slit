@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   blinker.h
  * Author: root
  *
@@ -20,8 +20,8 @@ uint8_t is_led_on(uint8_t);
 extern "C" {
 #endif
 
-    extern volatile struct V_data V;
-    extern volatile union Obits2 LEDS;
+	extern volatile struct V_data V;
+	extern volatile union Obits2 LEDS;
 
 #ifdef	__cplusplus
 }
