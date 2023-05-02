@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>mass_slit_tach</name>
+            <name>flow_meter_emulator</name>
             <creation-uuid>b72143c4-e848-4fe9-ab49-27bf018840af</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

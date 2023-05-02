@@ -203,7 +203,12 @@ void tm_handler(void) // timer/serial functions are handled here
 					RPMOUT = 0;
 					V.sample_freq = SAMPLEFREQ_S; // slowdown RPM signal to RDAC
 					V.comm_state = 2;
+#ifdef ALL_WAYS
+					V.sleep_ticks = 0;
+#else
 					V.sleep_ticks++;
+#endif
+
 				}
 				if (V.stop_tick >= STOP_RAMP) {
 					V.sample_freq = SAMPLEFREQ_S;

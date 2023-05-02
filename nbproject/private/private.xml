@@ -6,17 +6,6 @@
             <file>file:/sdd/work/mass_slit/pat.h</file>
             <file>file:/sdd/work/mass_slit/pat.c</file>
         </group>
-        <group>
-            <file>file:/fred/vcan/firmware/src/tic12400.c</file>
-            <file>file:/fred/mass_slit/blinker.h</file>
-            <file>file:/fred/vcan/firmware/src/vcan.h</file>
-            <file>file:/fred/vcan/firmware/src/config/default/peripheral/spi/spi_master/plib_spi5_master.c</file>
-            <file>file:/fred/mass_slit/pat.c</file>
-            <file>file:/fred/vcan/firmware/src/pid.c</file>
-            <file>file:/fred/vcan/firmware/src/tic12400.h</file>
-            <file>file:/fred/mass_slit/blinker.c</file>
-            <file>file:/fred/vcan/firmware/src/main.c</file>
-            <file>file:/fred/mass_slit/pat.h</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

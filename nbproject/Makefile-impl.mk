@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=mass_slit
+PROJECTNAME=flow_meter_emulator.X
 
 # Active Configuration
 DEFAULTCONF=default

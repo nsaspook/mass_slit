@@ -53,8 +53,8 @@ union Obits2 {
 #define	LEDOFF	1
 
 #define	TIMEROFFSET	20000		// timer0 16bit counter value for ~1 second to overflow 44268
-#define	SAMPLEFREQ	65266		// timer1 850hz
-#define	SAMPLEFREQ_S	64700		// timer1 300hz
+#define	SAMPLEFREQ	61000		// timer1 850hz
+#define	SAMPLEFREQ_S	61000		// timer1 300hz
 #define SAMPLEFREQ_R	62000		// timer1 rampup freq
 
 #define RMSPORTA	TRISA
@@ -74,7 +74,13 @@ union Obits2 {
 #define TACHIN		LATBbits.LATB0
 #define RPMLED		LATBbits.LATB5
 
-#define RPM_COUNT	2
+#define ALL_WAYS
+
+#ifdef ALL_WAYS
+#define RPM_COUNT	0
+#else
+#define RPM_COUNT	2 
+#endif
 #define SLEEP_COUNT	30
 #define STOP_RAMP	1
 #define START_RAMP	1
